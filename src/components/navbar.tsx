@@ -12,6 +12,7 @@ function NavLinks({
 }) {
   return (
     <div
+      className='contents'
       onClick={() => {
         setIsMobileMenuOpen?.(false)
       }}
