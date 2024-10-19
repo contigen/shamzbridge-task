@@ -1,23 +1,33 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Dispatch } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '../components/button'
 import { Users, Menu, X } from 'lucide-react'
 
 const NAV_LINKS = [`About`, `Services`, `Contact`]
 
-const NavLinks = () => (
-  <>
-    {NAV_LINKS.map(link => (
-      <a
-        key={link}
-        className='transition-colors hover:text-blue-400'
-        href={`#${link.toLowerCase()}`}
-      >
-        {link}
-      </a>
-    ))}
-  </>
-)
+function NavLinks({
+  setIsMobileMenuOpen,
+}: {
+  setIsMobileMenuOpen?: Dispatch<React.SetStateAction<boolean>>
+}) {
+  return (
+    <div
+      onClick={() => {
+        setIsMobileMenuOpen?.(false)
+      }}
+    >
+      {NAV_LINKS.map(link => (
+        <a
+          key={link}
+          className='transition-colors hover:text-blue-400'
+          href={`#${link.toLowerCase()}`}
+        >
+          {link}
+        </a>
+      ))}
+    </div>
+  )
+}
 
 export function Navbar() {
   const [isNavbarVisible, setIsNavbarVisible] = useState(true)
@@ -90,7 +100,7 @@ export function Navbar() {
             className='md:hidden fixed inset-x-0 top-16 bg-slate-900 text-white z-40'
           >
             <nav className='flex flex-col items-center space-y-4 py-4'>
-              <NavLinks />
+              <NavLinks {...{ setIsMobileMenuOpen }} />
               <Button className='bg-blue-600 text-white hover:bg-blue-700 w-full max-w-xs'>
                 Get Started
               </Button>
